@@ -1,0 +1,188 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: white;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: #636060;
+}
+
+p {
+  margin: 0;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+button.custom-link-ouline {
+  background: transparent;
+  border: 1px solid #62d0b6;
+  padding: 12px 24px;
+  color: #62d0b6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+}
+
+button.custom-link-ouline:hover img {
+  transition: 0.3s ease-in-out;
+}
+button.custom-link-ouline:hover img {
+  transform: translateX(-8px);
+}
+
+button.custom-link-filled,
+a.custom-link-filled {
+  background: #62d0b6;
+  border: 1px solid #62d0b6;
+  padding: 12px 48px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+}
+
+button.custom-link-ouline img {
+  width: 12px;
+}
+
+.error {
+  color: rgb(212, 65, 65) !important;
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+
+h1 {
+  padding: 50px 0;
+  font-size: 45px;
+  text-align: center;
+}
+:active,
+:hover,
+:focus {
+  outline: 0 !important;
+  outline-offset: 0;
+}
+::before,
+::after {
+  position: absolute;
+  content: "";
+}
+
+.btn-holder {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1000px;
+}
+.btn {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.btn span {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: 0.3s;
+}
+
+/*--- btn-1 ---*/
+.btn-1::before {
+  background-color: #62d0b6;
+  transition: 0.3s ease-out;
+}
+.btn-1 span {
+  color: rgb(255, 255, 255);
+  border: 1px solid #62d0b6;
+  transition: 0.2s 0.1s;
+}
+.btn-1 span:hover {
+  color: #62d0b6;
+  transition: 0.2s 0.1s;
+}
+
+/* 13. hover-border-3 */
+.btn.hover-border-3::before,
+.btn.hover-border-3::after {
+  width: 0%;
+  height: 0%;
+  opacity: 0;
+  transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+}
+.btn.hover-border-3::before {
+  top: 0;
+  right: 0;
+  border-radius: 8px;
+  border-top: 1px solid #62d0b6;
+  border-left: 1px solid #62d0b6;
+}
+.btn.hover-border-3::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 8px;
+  border-bottom: 1px solid #62d0b6;
+  border-right: 1px solid #62d0b6;
+}
+.btn.hover-border-3:hover::before,
+.btn.hover-border-3:hover::after {
+  width: 100%;
+  height: 99%;
+  opacity: 1;
+  transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;
+}
+
+@media (max-width: 720px) {
+  button.custom-link-ouline {
+    font-size: 12px;
+    gap: 5px;
+    padding: 12px 14px;
+    min-width: 100px;
+  }
+}

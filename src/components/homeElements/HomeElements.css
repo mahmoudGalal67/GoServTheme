@@ -1,0 +1,84 @@
+.home-elemnts.menu-sub li .wrapper {
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid rgb(226, 218, 218);
+  border-radius: 8px;
+  padding: 0 4px;
+  transition: 0.3s ease-in;
+}
+
+.home-elemnts.menu-sub li .wrapper:hover {
+  border-color: rgb(129, 126, 126) !important;
+}
+
+.home-elemnts.menu-sub li img {
+  width: 20px;
+  height: 20px;
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.add-sections.section-element {
+  padding: 12px !important;
+  max-width: calc(100% - 24px);
+  border: 2px dotted rgb(102, 98, 98) !important;
+  border-radius: 8px !important;
+  margin: 12px;
+  text-align: center;
+  justify-content: center !important;
+  cursor: pointer;
+}
+
+.add-sections.section-element label {
+  text-align: center;
+}
+
+.add-wrapper-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.add-wrapper-sections button {
+  width: 30%;
+}
+
+.home-sections.menu-sub {
+  overflow-y: auto !important;
+}
+
+.home-sections.menu-sub .add-wrapper-list {
+  height: 80% !important;
+  align-items: flex-start !important;
+  padding: 25px !important;
+  overflow: auto !important;
+}
+
+.home-sections.menu-sub .add-wrapper-list:hover {
+  background-color: transparent !important;
+  cursor: auto !important;
+}
+
+.home-sections.menu-sub .add-wrapper-list button {
+  background-color: #f8fafc;
+  border: 2px dotted rgb(101, 104, 104);
+  color: rgb(37, 35, 35);
+  transition: 0.3s ease-in-out;
+  text-wrap: wrap;
+  font-size: 14px;
+}
+
+.home-sections.menu-sub .add-wrapper-list button:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .add-wrapper-sections button {
+    width: 45%;
+    font-size: 10px !important;
+    overflow: auto !important;
+  }
+  .home-sections.menu-sub .add-wrapper-list {
+    overflow: auto !important;
+  }
+}

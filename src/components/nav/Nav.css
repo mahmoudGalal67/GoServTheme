@@ -1,0 +1,130 @@
+nav .wrapper {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  gap: 24px;
+  color: black;
+  padding: 45px 24px;
+}
+
+.item.search {
+  display: flex;
+  gap: 4px;
+  color: #9e9e9e;
+  border: 1px solid #9e9e9e;
+  padding: 12px 8px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+nav .item {
+  font-size: 12px;
+  text-align: center;
+}
+
+nav .item img {
+  cursor: pointer;
+}
+
+.item.search input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: black;
+}
+
+nav .item .img-wrapper {
+  padding: 8px;
+  background-color: #f8f8f8;
+  border-radius: 50%;
+}
+
+nav .item .img-wrapper .count {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  top: -7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 22px;
+  background-color: #62d0b6;
+  color: white;
+}
+
+nav .item .img-wrapper:hover img {
+  opacity: 0.7;
+}
+
+nav .item img,
+.offcanvas-body .item img {
+  width: 20px;
+  height: 20px;
+}
+
+nav .item .logo {
+  width: 103px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.nav-item.dropdown {
+  text-align: right;
+}
+
+.navbar-toggler.collapsed span {
+  background-image: url(../../../public/toggler.svg);
+}
+
+.offcanvas.show:not(.hiding) {
+  z-index: 10000000000;
+}
+
+.offcanvas-body {
+  z-index: 1000000000000;
+}
+
+@media (min-width: 1080px) {
+  nav {
+    position: relative;
+    z-index: 1000;
+  }
+}
+
+@media (max-width: 720px) {
+  nav .item.search {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  nav .wrapper {
+    padding: 18px 8px;
+    gap: 8px;
+  }
+  nav .item .img-wrapper {
+    padding: 4px;
+  }
+  nav .item img {
+    width: 15px;
+    height: 15px;
+  }
+  nav .item .logo {
+    width: 60px;
+  }
+  .container {
+    margin: 0 !important;
+  }
+}
+
+marquee {
+  background-color: #e94f4f;
+  color: white;
+}
+
+marquee span {
+  margin: 0 48px;
+}

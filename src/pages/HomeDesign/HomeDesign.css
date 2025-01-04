@@ -1,0 +1,23 @@
+.home-design {
+  width: calc(100vw - 420px);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.home-design {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.home-design > .info {
+  display: none;
+}
+@media (max-width: 1080px) {
+  .home-design {
+    width: 100vw;
+  }
+}

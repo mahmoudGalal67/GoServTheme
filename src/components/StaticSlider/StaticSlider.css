@@ -1,0 +1,45 @@
+.static-slider .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  background-image: url(../../../public/home-banner.d05d165670686b3c54e8.png);
+  background-size: cover;
+  background-position: right;
+  padding: 6% 16px;
+  color: white;
+}
+
+.static-slider .info h2 {
+  font-size: 48px;
+  text-align: end;
+}
+
+.static-slider .info p {
+  text-align: center;
+  font-size: 18px;
+  text-align: end;
+}
+
+.static-slider .info .custom-link-filled {
+  align-self: end;
+  margin-top: 25px;
+}
+
+@media (max-width: 720px) {
+  .static-slider .info h2 {
+    font-size: 22px;
+    text-align: center;
+  }
+  .static-slider .info p {
+    font-size: 14px;
+    text-align: center;
+  }
+  .static-slider .info {
+    padding: 20% 8px;
+    background-position: center;
+  }
+  .static-slider .info .custom-link-filled {
+    align-self: center;
+  }
+}

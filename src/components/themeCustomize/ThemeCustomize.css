@@ -1,0 +1,39 @@
+.menu-sub.theme-coustomize .code {
+  height: 40% !important;
+  margin: 12px;
+  width: 90%;
+  padding: 0 !important;
+}
+.menu-sub.theme-coustomize .code textarea {
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  height: 100%;
+  background-color: white;
+  color: black;
+  outline: none;
+  border: 1px solid rgb(92, 90, 90);
+  line-height: 1.5;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+.menu-sub.theme-coustomize * {
+  scrollbar-width: thin;
+  scrollbar-color: #5e5e5e #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+.menu-sub.theme-coustomize *::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menu-sub.theme-coustomize *::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.menu-sub.theme-coustomize *::-webkit-scrollbar-thumb {
+  background-color: #5e5e5e;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+}

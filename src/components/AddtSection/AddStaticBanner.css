@@ -1,0 +1,77 @@
+.add .modal-body,
+.add .modal-body form,
+.add .modal-body .banner-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+.add .modal-body span {
+  font-size: 14px;
+}
+
+.add .modal-body p {
+  font-size: 14px;
+  color: #c5c5c5;
+}
+
+.add .modal-body label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8fafc;
+  border: 2px dotted rgb(164, 168, 168);
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.add .modal-body label span {
+  font-size: 12px;
+  color: #c5c5c5;
+}
+
+.add .modal-body h4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add .modal-body input {
+  outline: none;
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 12px;
+  color: rgb(44, 41, 41);
+  border: 1px solid rgb(168, 157, 157);
+}
+
+.add .modal-body button {
+  border: 2px dotted rgb(129, 188, 207);
+  background-color: transparent;
+  padding: 12px;
+  color: #656768;
+  border-radius: 8px;
+  transition: 0.3s ease-in;
+}
+
+.add .modal-body button:hover {
+  transform: scale(1.05);
+}
+
+.add .modal-body button.submit {
+  border: none;
+  background-color: rgb(129, 188, 207);
+  color: white;
+}
+
+.stop .modal.show .modal-dialog {
+  transform: translate(0, -50px);
+}
+
+.stop .fade {
+  transition: none !important;
+}

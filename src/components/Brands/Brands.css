@@ -1,0 +1,85 @@
+.brands {
+  padding: 45px 2%;
+}
+
+.brands .header {
+  margin: 45px 25px 25px 0;
+}
+
+.brands .header > h2 {
+  font-size: 24px;
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+.brands .header > p {
+  text-align: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.brands .swiper {
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+}
+
+.brands .swiper-slide {
+  padding: 8px 32px;
+  border-radius: 8px;
+  border: 1px solid rgb(196, 186, 186);
+}
+
+.brands .swiper-slide img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.brands .swiper-button-next {
+  left: 94px;
+  right: auto;
+}
+
+.brands .swiper-button-prev {
+  left: 35px;
+}
+
+.brands .swiper-button-prev,
+.brands .swiper-button-next {
+  top: -50%;
+  border: 2px solid rgb(97, 94, 94);
+  padding: 12px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.brands .swiper-button-prev::after,
+.brands .swiper-button-next::after {
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+}
+
+@media (max-width: 720px) {
+  .brands .header h2 {
+    font-size: 22px;
+  }
+  .brands .header p {
+    font-size: 14px;
+  }
+  .brands .swiper-button-prev,
+  .brands .swiper-button-next {
+    top: -100%;
+  }
+
+  .brands .swiper-button-next {
+    left: 84px;
+    right: auto;
+  }
+
+  .brands .swiper-button-prev {
+    left: 25px;
+  }
+}

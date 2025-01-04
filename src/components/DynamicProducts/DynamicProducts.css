@@ -1,0 +1,213 @@
+.dynamic-products {
+  background-color: #f8f8f8;
+  padding: 2% 8px;
+}
+
+.dynamic-products .header {
+  margin: 45px 25px 25px 0;
+}
+
+.dynamic-products .header > h2 {
+  font-size: 24px;
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+.dynamic-products .header > p {
+  text-align: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.dynamic-products .swiper {
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+}
+
+.dynamic-products .product {
+  position: relative;
+  width: 280px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 6px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+}
+
+.dynamic-products .product > img {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+  background-color: white;
+}
+
+.dynamic-products .product .title {
+  color: #62d0b6;
+  padding: 0 18px;
+}
+
+.dynamic-products .product .desc {
+  font-weight: 500;
+  padding: 0 18px;
+}
+
+.dynamic-products .product .info {
+  font-size: 14px;
+  color: rgb(82, 79, 79);
+  padding: 0 18px;
+}
+
+.dynamic-products .product .price-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+}
+
+.dynamic-products .product .price-wrapper .old {
+  font-size: 14px;
+  text-decoration: line-through;
+  color: lightgray;
+}
+
+.dynamic-products .product .price-wrapper .new {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f55957;
+}
+
+.dynamic-products .product .links-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 12px;
+  align-items: stretch;
+  width: 100%;
+  margin: 12px 0;
+}
+
+.dynamic-products .product .links-wrapper .fav {
+  width: 45px;
+  height: 45px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+}
+
+.dynamic-products .product .links-wrapper .fav img {
+  width: 20px;
+}
+
+.dynamic-products .product .links-wrapper .cart span {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.dynamic-products .product .offer {
+  background-color: #f55157;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 13px;
+  right: 10px;
+  padding: 2px 15px;
+  position: absolute;
+  top: 10px;
+}
+
+.dynamic-products .product .offer::after {
+  border: 5px solid transparent;
+  border-right-color: #f55157;
+  border-color: transparent #f55157 transparent transparent;
+  content: "";
+  height: 5px;
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 5px;
+}
+
+.dynamic-products .product .special {
+  background-color: #62d0b6;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 13px;
+  left: 10px;
+  padding: 2px 15px;
+  position: absolute;
+  top: 10px;
+}
+
+.dynamic-products .product .special::after {
+  border: 5px solid transparent;
+  border-left-color: #62d0b6;
+  border-color: transparent transparent transparent #62d0b6;
+  content: "";
+  height: 5px;
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 5px;
+}
+
+.dynamic-products .swiper-button-next {
+  left: 94px;
+  right: auto;
+}
+
+.dynamic-products .swiper-button-prev {
+  left: 35px;
+}
+
+.dynamic-products .swiper-button-prev,
+.dynamic-products .swiper-button-next {
+  top: -15%;
+  border: 2px solid rgb(97, 94, 94);
+  padding: 12px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.dynamic-products .swiper-button-prev::after,
+.dynamic-products .swiper-button-next::after {
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+}
+
+@media (max-width: 500px) {
+  .dynamic-products .product {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .dynamic-products .header h2 {
+    font-size: 22px;
+  }
+  .dynamic-products .header p {
+    font-size: 14px;
+  }
+  .dynamic-products .swiper-button-prev,
+  .dynamic-products .swiper-button-next {
+    top: -15%;
+  }
+
+  .dynamic-products .swiper-button-next {
+    left: 84px;
+    right: auto;
+  }
+
+  .dynamic-products .swiper-button-prev {
+    left: 25px;
+  }
+}

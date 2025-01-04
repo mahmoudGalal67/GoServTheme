@@ -1,0 +1,128 @@
+.Testimonials {
+  padding: 45px 8px;
+}
+.Testimonials .header {
+  margin: 45px 25px 25px 0;
+}
+
+.Testimonials .header > h2 {
+  font-size: 24px;
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+.Testimonials .header > p {
+  text-align: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.Testimonials .swiper {
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+}
+
+.Testimonials .swiper-slide {
+  flex-direction: column;
+  justify-content: end;
+  gap: 16px;
+  width: 30%;
+  padding: 25px;
+  border: 1px solid rgb(206, 194, 194);
+  border-radius: 8px;
+  margin: 0 25px;
+}
+.Testimonials .swiper-slide .head {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.Testimonials .swiper-slide p {
+  text-align: right;
+  font-weight: 600;
+}
+
+.Testimonials .swiper-slide .user {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  text-align: right;
+  align-self: end;
+}
+.Testimonials .swiper-slide .user .info {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  gap: 6px;
+}
+
+.Testimonials .swiper-slide .user > img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.Testimonials .swiper-slide .user .info span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.Testimonials .swiper-slide .user .info p {
+  color: rgb(73, 70, 70);
+}
+
+.Testimonials .swiper-button-next {
+  left: 94px;
+  right: auto;
+}
+
+.Testimonials .swiper-button-prev {
+  left: 35px;
+}
+
+.Testimonials .swiper-button-prev,
+.Testimonials .swiper-button-next {
+  top: -15%;
+  border: 2px solid rgb(97, 94, 94);
+  padding: 12px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.Testimonials .swiper-button-prev::after,
+.Testimonials .swiper-button-next::after {
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+}
+
+@media (max-width: 720px) {
+  .Testimonials .header h2 {
+    font-size: 22px;
+  }
+  .Testimonials .header p {
+    font-size: 14px;
+  }
+  .Testimonials .swiper-button-prev,
+  .Testimonials .swiper-button-next {
+    top: -45%;
+  }
+
+  .Testimonials .swiper-button-next {
+    left: 84px;
+    right: auto;
+  }
+
+  .Testimonials .swiper-button-prev {
+    left: 25px;
+  }
+}
+
+@media (max-width: 800px) {
+  .Testimonials .swiper-slide {
+    margin: 0;
+  }
+}

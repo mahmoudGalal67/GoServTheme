@@ -1,0 +1,67 @@
+.dynamic-slider .swiper-slide {
+  flex-direction: column;
+  justify-content: center;
+  background-image: url(../../../public/banner.png);
+  background-size: cover;
+  padding: 18% 16px;
+  color: white;
+}
+
+.dynamic-slider .swiper-slide h2 {
+  font-size: 48px;
+}
+
+.dynamic-slider .swiper-slide p {
+  text-align: center;
+  font-size: 18px;
+}
+
+.dynamic-slider .swiper-pagination {
+  top: 70%;
+}
+
+.dynamic-slider .swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  border: 2px solid white;
+}
+
+.dynamic-slider .swiper-pagination-bullet-active {
+  background-color: #62d0b6;
+  width: 40px;
+  border-radius: 30%;
+  border: none;
+}
+
+.dynamic-slider .swiper-button-prev,
+.dynamic-slider .swiper-button-next {
+  border: 2px solid white;
+  padding: 12px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.dynamic-slider .swiper-button-prev::after,
+.dynamic-slider .swiper-button-next::after {
+  font-size: 18px;
+  color: white;
+}
+
+@media (max-width: 720px) {
+  .dynamic-slider .swiper-slide h2 {
+    font-size: 22px;
+  }
+  .dynamic-slider .swiper-slide p {
+    font-size: 14px;
+  }
+  .dynamic-slider .swiper-button-prev,
+  .dynamic-slider .swiper-button-next {
+    display: none;
+  }
+  .dynamic-slider .swiper-slide {
+    padding: 60% 8px;
+    background-position: center;
+  }
+}

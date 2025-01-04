@@ -1,0 +1,23 @@
+.f-button {
+  padding: 24px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  position: fixed;
+  bottom: 45px;
+  left: 4%;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  z-index: 10000000000000;
+}
+
+@media (max-width: 500px) {
+  .f-button {
+    padding: 18px;
+    font-size: 18px;
+  }
+}

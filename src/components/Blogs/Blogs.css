@@ -1,0 +1,53 @@
+.blogs {
+  padding: 45px 2%;
+}
+
+.blogs .headers {
+  justify-content: space-between;
+  margin-bottom: 45px;
+}
+
+.blogs .headers > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: right;
+}
+
+.blogs .wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.blogs .wrapper .blog {
+  max-width: 600px;
+  max-height: 800px;
+  min-width: 280px;
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.blogs .wrapper .blog img {
+  width: 100%;
+  max-height: 80%;
+}
+
+.blogs .wrapper .blog h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+.blogs .wrapper .blog p {
+  font-size: 14px;
+  color: rgb(49, 48, 48);
+  font-weight: 500;
+  padding: 0 12px;
+}

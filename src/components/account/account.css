@@ -1,0 +1,88 @@
+.modal-dialog {
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.modal-lg {
+  width: 400px;
+}
+
+.modal-header {
+  border: none;
+}
+
+.modal-dialog .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.modal-dialog .wrapper img {
+  width: 60px;
+  height: 60px;
+}
+
+.modal-dialog .wrapper h2 {
+  font-size: 18px;
+}
+
+.modal-dialog .wrapper label {
+  align-self: flex-end;
+}
+
+.modal-dialog .wrapper input {
+  width: 100%;
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 12px;
+  color: rgb(44, 41, 41);
+  border: 1px solid rgb(168, 157, 157);
+  outline: none;
+}
+
+.modal-dialog .wrapper input:focus {
+  border: 2px solid #60f4d4;
+}
+
+.modal-dialog .wrapper input::placeholder {
+  color: #60f4d4;
+}
+
+.modal-dialog .wrapper button,
+.modal-button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background-color: #60f4d4;
+  transition: 0.3s ease-in;
+}
+
+.modal-dialog .wrapper button:hover,
+.modal-button:hover {
+  background-color: #76b8a9;
+}
+
+.modal-dialog .wrapper span {
+  color: #60f4d4;
+  cursor: pointer;
+}
+
+.modal-content {
+  z-index: 10000000;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .modal-lg {
+    width: auto;
+  }
+}

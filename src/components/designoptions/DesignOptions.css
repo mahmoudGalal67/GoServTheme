@@ -1,0 +1,16 @@
+.submit-button {
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  z-index: 10000;
+  background-color: aqua;
+  transition: 0.3s ease-in;
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+}
+
+.submit-button:disabled {
+  background-color: rgba(201, 245, 245, 0.644);
+}

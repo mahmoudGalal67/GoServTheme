@@ -1,0 +1,50 @@
+div.info {
+  padding: 8px 32px;
+  justify-content: space-between;
+  background-color: #f8f8f8;
+  color: black;
+  font-size: 14px;
+  position: relative;
+  z-index: 1000000000000;
+}
+
+.info .left > a {
+  padding: 0 12px;
+  border-right: 1px solid black;
+}
+
+.info .left > a:nth-child(4) {
+  border-right: none;
+}
+.info .left > a:nth-child(4) > img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.info .email img,
+.info .phone img {
+  width: 15px;
+  height: 15px;
+}
+
+@media (min-width: 800px) {
+  div.info {
+    position: relative;
+    z-index: 1000000000000;
+  }
+}
+
+@media (max-width: 800px) {
+  div.info,
+  .info .left {
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 4px;
+  }
+  .info .left > a {
+    padding: 0;
+    border-right: none;
+    font-size: 12px;
+  }
+}

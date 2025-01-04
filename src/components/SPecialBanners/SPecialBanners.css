@@ -1,0 +1,44 @@
+.special-banners {
+  padding: 6% 18px;
+}
+
+.special-banners .wrapper {
+  display: flex;
+  justify-content: space-around;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.special-banners .wrapper .item {
+  display: flex;
+  width: 31%;
+  flex-direction: column;
+  padding: 6% 18px;
+  justify-content: space-around;
+  align-items: end;
+  gap: 32px;
+  color: white;
+  background-image: url(../../../public/adv-three.ed0ec4ece2573f81e9a3.png);
+  background-size: cover;
+}
+
+.special-banners .wrapper .item:nth-child(2) {
+  background-image: url(../../../public/adv-one.bd0d3e8b986138b8e229.png);
+  background-size: cover;
+}
+.special-banners .wrapper .item:nth-child(3) {
+  background-image: url(../../../public/adv-two.86856c8bd957e2fbea4e.png);
+  background-size: cover;
+}
+.special-banners .wrapper .item:nth-child(4) {
+  width: 100%;
+  background-image: url(../../../public/adv-four.c8115615719f16d5d580.png);
+  background-position: center;
+  background-size: cover;
+}
+
+@media (max-width: 800px) {
+  .special-banners .wrapper .item {
+    width: 100%;
+  }
+}

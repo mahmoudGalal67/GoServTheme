@@ -32,15 +32,11 @@ function MyVerticallyCenteredModal(props) {
     try {
       setLoading(true);
       const { data } = await request({
-        url: "/api/website/user/login",
-        method: "post",
-        // withCredentials: true,
-        data: { email, password },
-        // Authorization: `Bearer ${cookies?.user}`,
+        url: `/api/UsersController/login?Email=${email}&password=${password}`,
       });
-      setCookie("user", data.token, { path: "/" });
-      dispatch({ type: "login", payload: data.user });
-      toast.success("You have been logged in successfully");
+      setCookie("user", data[0].token, { path: "/" });
+      dispatch({ type: "login", payload: data[0] });
+      // toast.success("You have been logged in successfully");
       setLoading(false);
       props.onHide();
       setErr(null);
@@ -59,9 +55,18 @@ function MyVerticallyCenteredModal(props) {
     try {
       setLoading(true);
       const { data } = await request({
-        url: "/api/website/user/register",
+        url: "/api/UsersController/register",
         method: "post",
-        data: { name, email, phone, password, password_confirmation: password },
+        data: {
+          name,
+          email,
+          mobile: phone,
+          password,
+          otp: "string",
+          userPhoto: "string",
+          rol: "string",
+          active: true,
+        },
       });
       toast.success("You have been registerde in successfully");
       setLoading(false);

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Cart.css";
+import axios from "axios";
 
 function Cart() {
   const { user } = useContext(AuthContext);
@@ -53,6 +54,26 @@ function Cart() {
   const handleRemove = (id) => {
     dispatch(removeItemFromCart({ id }));
   };
+
+  const handlePayment = async () => {
+    if (!user) {
+      toast.info("you have to login firist");
+    } else {
+      const { data } = await axios({
+        url: "https://salla111-001-site1.ptempurl.com/api/Payment/create-payment-link",
+        method: "POST",
+        data: {
+          amount_cents: totalAmount * 100,
+          phone_number: `+${user.mobile}`,
+          redirection_url: "https://theme.sallaplus.com/",
+        },
+      });
+
+      toast.success("Your order have been sent scuccessfully");
+      console.log(data);
+    }
+  };
+
   return (
     <>
       <Info />
@@ -89,7 +110,10 @@ function Cart() {
                 <span className="mx-1 mt-2 fw-medium">{totalAmount} ر.س</span>
               </div>
               <p className="ms-auto mt-3 mb-2">الاسعار شامله الضريبه </p>
-              <button className="rounded-3 mb-3 p-2 confirm">
+              <button
+                className="rounded-3 mb-3 p-2 confirm"
+                onClick={handlePayment}
+              >
                 اتمام الطلب
               </button>
             </div>

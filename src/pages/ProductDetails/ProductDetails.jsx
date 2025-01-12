@@ -94,7 +94,7 @@ function ProductDetails() {
   const handleSizeChange = (e) => {
     setSizeId(Number(e.target.value));
   };
-
+  console.log(ProductDetails?.product_colors[ProductColorID]);
   useEffect(() => {
     const getProductDetails = async () => {
       try {
@@ -148,8 +148,8 @@ function ProductDetails() {
         quantity: count,
         price:
           ProductDetails.product_colors.length > 0
-            ? ProductDetails.product_colors[ProductColorID].product_color_sizes
-                .price[SizeId]
+            ? ProductDetails.product_colors[ProductColorID]
+                .product_color_sizes[0].price[SizeId]
             : ProductDetails.price,
       })
     );
@@ -215,10 +215,10 @@ function ProductDetails() {
                   <div className="images">
                     <h3>صور المنتج</h3>
                     <div className="wrapper flex justify-content-end">
-                      {ProductDetails.product_colors.lenght > 0 &&
+                      {ProductDetails.product_colors &&
                         ProductDetails.product_colors[
                           ProductColorID
-                        ].photos.map((img, i) => (
+                        ].photoes.map((img, i) => (
                           <ModalImage
                             small={`http://salla1-001-site1.anytempurl.com/${img}`}
                             large={`http://salla1-001-site1.anytempurl.com/${img}`}
@@ -299,11 +299,12 @@ function ProductDetails() {
                 onChange={(e) => handleSizeChange(e)}
                 className="w-75 p-2 bg-light rounded-2 border-1 border-black-50 text-black-50"
               >
-                {ProductDetails.product_colors[
-                  ProductColorID
-                ].product_color_sizes.size.map((size, i) => (
-                  <option value={i}>{size}</option>
-                ))}
+                {ProductDetails.product_colors &&
+                  ProductDetails.product_colors[
+                    ProductColorID
+                  ].product_color_sizes[0].size.map((size, i) => (
+                    <option value={i}>{size}</option>
+                  ))}
               </select>
               <div className="fs-6 fw-bold">اختر المقاس</div>
             </div>
@@ -314,7 +315,7 @@ function ProductDetails() {
             <div className="price">
               {ProductDetails.product_colors.length > 0
                 ? ProductDetails.product_colors[ProductColorID]
-                    .product_color_sizes.price[SizeId]
+                    .product_color_sizes[0].price[SizeId]
                 : ProductDetails.price}
             </div>
             <div className="counter">

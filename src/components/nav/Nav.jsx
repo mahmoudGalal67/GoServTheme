@@ -17,7 +17,7 @@ import { useCookies } from "react-cookie";
 import { Search } from "./Search";
 import { useSelector } from "react-redux";
 
-function NavBar({ design, setSearchInput }) {
+function NavBar({ design, handleSearch }) {
   const [modalShow, setModalShow] = useState(false);
   const { user, dispatch } = useContext(AuthContext);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
@@ -78,7 +78,7 @@ function NavBar({ design, setSearchInput }) {
             )}
           </div>
           <div className="item search flex  justify-content-end">
-            <Search setSearchInput={setSearchInput} />
+            <Search handleSearch={handleSearch} />
             <img src="/search.svg" alt="" />
           </div>
           <div className="item flex">

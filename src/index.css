@@ -39,6 +39,10 @@ p {
   margin: 0;
 }
 
+.options .form-select {
+  width: auto !important;
+}
+
 .flex {
   display: flex;
   justify-content: center;

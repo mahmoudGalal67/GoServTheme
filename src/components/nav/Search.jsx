@@ -1,12 +1,18 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
-export const Search = ({ setSearchInput }) => {
-  const searchValue = useRef(null);
+export const Search = ({ handleSearch }) => {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSearch = (e) => {
+  const search = (e, name, value) => {
     if (e.key === "Enter" || e.keyCode === 13) {
-      setSearchInput(searchValue.current.value);
+      if ((location.pathname = "/")) {
+        navigate(`/products?search=${e.target.value}`);
+      }
+      handleSearch(name, value);
       window.scrollTo(0, 250);
     }
   };
@@ -14,9 +20,9 @@ export const Search = ({ setSearchInput }) => {
   return (
     <div style={{ width: "100%", direction: "rtl" }}>
       <input
-        type="search"
-        onKeyDown={(e) => handleSearch(e)}
-        ref={searchValue}
+        type="text"
+        name="search_text"
+        onKeyDown={(e) => search(e, e.target.name, e.target.value)}
         placeholder="ابحث عما تريد"
       />
     </div>

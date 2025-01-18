@@ -8,8 +8,11 @@ import "./StaticProducts.css";
 import FavButton from "../FavButton/FavButton";
 import CartButton from "../CartButton/CartButton";
 
-import { products } from "./dummyProducts";
+import { useSearchParams } from "react-router-dom";
+
 import { request } from "../utils/Request";
+
+import { products } from "./dummyProducts";
 
 const truncateTitle = (title, numWords) => {
   const words = title.split(" ");
@@ -20,6 +23,8 @@ const truncateTitle = (title, numWords) => {
 };
 
 function StaticProducts({ searchInput }) {
+  let [searchParams, setSearchParams] = useSearchParams();
+
   const [StaticProducts, setStaticProducts] = useState([]);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
@@ -53,26 +58,10 @@ function StaticProducts({ searchInput }) {
     const fetchData = async () => {
       try {
         const { data } = await request({
-          url: "/api/Product_details/Getall?userid=1",
+          url: `/api/Product_details/Getall?userid=${searchParams.get("id")}`,
         });
-        console.log(data);
-        setStaticProducts(data.slice(0, 8));
-        // if (searchInput) {
-        //   const results = response.data.filter((product) => {
-        //     const searchTerms = searchInput.toLowerCase().split(" ");
-        //     return searchTerms.some((term) =>
-        //       [
-        //         product.name.en.toLowerCase(),
-        //         product.description.en.toLowerCase(),
-        //         // product.category_name.toLowerCase(),
-        //         // product.brand_name.toLowerCase(),
-        //       ].some((field) => field.includes(term))
-        //     );
-        //   });
-        //   setStaticProducts(results.slice(0, 8));
-        // } else {
-        //   setStaticProducts(response.data);
-        // }
+        // setStaticProducts(data.slice(0, 8));
+        setStaticProducts(products.slice(0, 8));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -124,7 +113,7 @@ function StaticProducts({ searchInput }) {
                           }}
                         >
                           <img
-                            src={`http://salla1-001-site1.anytempurl.com/${product.photoes[0]}`}
+                            src={`https://salla111-001-site1.ptempurl.com/${product.photoes[0]}`}
                             alt=""
                             style={{
                               width: "100%",
@@ -132,7 +121,7 @@ function StaticProducts({ searchInput }) {
                               margin: "0",
                             }}
                           />
-                          <div className="title">ساعات</div>
+                          <div className="title">{brand.brand_name}</div>
                           <Link to={`/productDetails/${product.product_id}`}>
                             <p className="desc">
                               {truncateTitle(product.product_name_ar, 2)}

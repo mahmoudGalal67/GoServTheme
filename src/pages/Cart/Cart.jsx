@@ -53,24 +53,48 @@ function Cart() {
 
   const handleRemove = (id) => {
     dispatch(removeItemFromCart({ id }));
+    console.log(id);
   };
 
   const handlePayment = async () => {
     if (!user) {
-      toast.info("you have to login firist");
-    } else {
-      const { data } = await axios({
-        url: "https://salla111-001-site1.ptempurl.com/api/Payment/create-payment-link",
-        method: "POST",
-        data: {
-          amount_cents: totalAmount * 100,
-          phone_number: `+${user.mobile}`,
-          redirection_url: "https://theme.sallaplus.com/",
-        },
-      });
+      toast.info("You have to log in first");
+      return; // Stop further execution if the user is not logged in
+    }
 
-      toast.success("Your order have been sent scuccessfully");
-      console.log(data);
+    try {
+      // Validate phone number format
+      // const phoneRegex = /^\+\d{10,15}$/;
+      // if (!phoneRegex.test(user.mobile)) {
+      //   toast.error("Invalid phone number format");
+      //   return;
+      // }
+
+      // Calculate amount_cents and prepare payload
+      const payload = {
+        amount_cents: Number(totalAmount * 100), // Convert totalAmount to cents
+        phone_number: `+${user.mobile}`, // Ensure phone number includes the country code
+        redirection_url: "https://sallaplus.com", // Redirection URL
+      };
+
+      // Make API request
+      const { data } = await axios.post(
+        "https://salla111-001-site1.ptempurl.com/api/Payment/create-payment-link",
+        payload
+      );
+
+      // Handle success
+      toast.success("Your order has been sent successfully");
+      console.log("Payment link data:", data);
+
+      // Optionally redirect or handle further actions here
+    } catch (error) {
+      // Handle error
+      console.error(
+        "Error creating payment link:",
+        error.response ? error.response.data : error.message
+      );
+      toast.error("Failed to process the payment. Please try again.");
     }
   };
 

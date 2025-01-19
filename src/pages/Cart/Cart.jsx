@@ -12,13 +12,20 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Cart.css";
-import axios from "axios";
+import { useCookies } from "react-cookie";
+import { request } from "../../components/utils/Request";
 
 function Cart() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.items);
+
+  // const [cookies, setCookie] = useCookies(["usertoken"]);
+  const cookies = {
+    usertoken:
+      "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBeE5UWXpNeXdpY0doaGMyZ2lPaUpqWldNeE56bGhZVFprWWpFMVlqa3daVEk1WW1JMFpHUXpOakV5WmpGalpEazJaREk1WmpkaFltSmxZbUZsTkdFNE9EWTNabUZoWW1NeU16STRZemxpSWl3aVpYaHdJam94TnpNM01qRXdNelEyZlEuTXhWRHR6c0tZdENmT2tXa1RxRjc3RTJRMFlBVENRLWxGckdUcGh1eFk5UkVRWUw4UVUxSWFhRHJmeHdqM1AzeVAyY1lmbEtiZGM0cGZEdWs1M2ZobkE=",
+  };
 
   const totalAmount = products.reduce(
     (total, product) => total + product.price * product.quantity,
@@ -72,16 +79,23 @@ function Cart() {
 
       // Calculate amount_cents and prepare payload
       const payload = {
-        amount_cents: Number(totalAmount * 100), // Convert totalAmount to cents
+        amount_cents: Number(20000 * 100), // Convert totalAmount to cents
         phone_number: `+${user.mobile}`, // Ensure phone number includes the country code
         redirection_url: "https://sallaplus.com", // Redirection URL
+        payment_methods: 4915674,
+        is_live: false,
       };
 
       // Make API request
-      const { data } = await axios.post(
-        "https://salla111-001-site1.ptempurl.com/api/Payment/create-payment-link",
-        payload
-      );
+      const { data } = await request({
+        url: "/api/Payment/create-payment-link",
+        method: "POST",
+        data: payload,
+        headers: {
+          // "Content-Type": "multipart/form-data",
+          Authorization: `Bearer  ${cookies.usertoken}`,
+        },
+      });
 
       // Handle success
       toast.success("Your order has been sent successfully");

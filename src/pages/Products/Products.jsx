@@ -95,20 +95,19 @@ function Products() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const { data } = await request({
-        //   url: `/api/Product_details/Getall?userid=${searchParams.get("id")}`,
-        // });
-        setProducts(products.slice(0, 8));
+        const { data } = await request({
+          url: `/api/Product_details/Getall?userid=${searchParams.get("id")}`,
+        });
+        setProducts(data.slice(0, 8));
         setcategories([
           ...new Set(
-            products.map((product) => ({
+            data.map((product) => ({
               id: product.category_id,
               name: product.category_name_ar,
             }))
           ),
         ]);
-        extractAllBrands(products);
-        // setProducts(data.slice(0, 8));
+        extractAllBrands(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

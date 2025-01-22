@@ -41,7 +41,7 @@ function ProductReviews() {
           rating_number: reviewsNumber,
           rating_comment: comment,
         },
-        headers: { Authorization: `Bearer ${cookies?.user}` },
+        headers: { Authorization: `Bearer ${cookies?.usertoken}` },
       });
       setComment("");
       setReviewsNumber(1);

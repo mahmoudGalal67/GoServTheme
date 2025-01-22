@@ -12,7 +12,14 @@ const favoriteSlice = createSlice({
   },
   reducers: {
     addFavorite: (state, action) => {
-      state.items.push(action.payload);
+      state.items.push({
+        product_id: action.payload.product_id,
+        price: action.payload.price,
+        photoes: action.payload.photoes,
+        product_name_ar: action.payload.product_name_ar,
+        product_name_en: action.payload.product_name_en,
+        quantity: 1,
+      });
       saveFavoritesToLocalStorage(state.items);
     },
     removeFavorite: (state, action) => {

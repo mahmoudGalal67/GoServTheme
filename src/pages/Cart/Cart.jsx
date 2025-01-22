@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Cart.css";
 import { useCookies } from "react-cookie";
 import { request } from "../../components/utils/Request";
+import { useState } from "react";
 
 function Cart() {
   const { user } = useContext(AuthContext);
@@ -21,11 +22,23 @@ function Cart() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.items);
 
+  const [loading, setLoading] = useState(false);
+
+  const orders = products.map((product) => ({
+    product_id: product.product_id,
+    product_name: product.product_name_ar,
+    price: Number(product.price),
+    quantity: product.quantity,
+  }));
+
+  // Genereates a number between 0 to 1;
+  Math.random();
+
+  // to gerate a randome rounded number between 1 to 10;
+  var theRandomNumber = Math.floor(Math.random() * 1000) + 1;
+
   // const [cookies, setCookie] = useCookies(["usertoken"]);
-  const cookies = {
-    usertoken:
-      "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBeE5UWXpNeXdpY0doaGMyZ2lPaUpqWldNeE56bGhZVFprWWpFMVlqa3daVEk1WW1JMFpHUXpOakV5WmpGalpEazJaREk1WmpkaFltSmxZbUZsTkdFNE9EWTNabUZoWW1NeU16STRZemxpSWl3aVpYaHdJam94TnpNM01qRXdNelEyZlEuTXhWRHR6c0tZdENmT2tXa1RxRjc3RTJRMFlBVENRLWxGckdUcGh1eFk5UkVRWUw4UVUxSWFhRHJmeHdqM1AzeVAyY1lmbEtiZGM0cGZEdWs1M2ZobkE=",
-  };
+  const [cookies, setCookie] = useCookies(["usertoken"]);
 
   const totalAmount = products.reduce(
     (total, product) => total + product.price * product.quantity,
@@ -79,30 +92,43 @@ function Cart() {
 
       // Calculate amount_cents and prepare payload
       const payload = {
-        amount_cents: Number(20000 * 100), // Convert totalAmount to cents
-        phone_number: `+${user.mobile}`, // Ensure phone number includes the country code
+        amount_cents: Number(totalAmount * 100), // Convert totalAmount to cents
+        phone_number: "+201026682015", // Ensure phone number includes the country code
         redirection_url: "https://sallaplus.com", // Redirection URL
         payment_methods: 4915674,
         is_live: false,
       };
 
       // Make API request
+      setLoading(true);
       const { data } = await request({
         url: "/api/Payment/create-payment-link",
         method: "POST",
         data: payload,
         headers: {
-          // "Content-Type": "multipart/form-data",
           Authorization: `Bearer  ${cookies.usertoken}`,
         },
       });
-
+      // Make API request
+      // await request({
+      //   url: `/api/Clients/add_orders?totamount=${totalAmount * 100}&orderid=${
+      //     data.id
+      //   }`,
+      //   method: "POST",
+      //   data: orders,
+      //   headers: {
+      //     Authorization: `Bearer  ${cookies.usertoken}`,
+      //   },
+      // });
+      setLoading(false);
+      window.location.href = data.shorten_url;
       // Handle success
       toast.success("Your order has been sent successfully");
       console.log("Payment link data:", data);
 
       // Optionally redirect or handle further actions here
     } catch (error) {
+      setLoading(false);
       // Handle error
       console.error(
         "Error creating payment link:",
@@ -151,8 +177,9 @@ function Cart() {
               <button
                 className="rounded-3 mb-3 p-2 confirm"
                 onClick={handlePayment}
+                disabled={loading}
               >
-                اتمام الطلب
+                {loading ? "Loading ..." : "اتمام الطلب"}
               </button>
             </div>
 
@@ -165,7 +192,7 @@ function Cart() {
                   <div className="d-flex justify-content-start mt-2">
                     <div className="py-3">
                       <img
-                        src={`http://salla1-001-site1.anytempurl.com/${product?.photoes[0]}`}
+                        src={`https://salla111-001-site1.ptempurl.com/${product?.photoes[0]}`}
                         height={100}
                         width={100}
                         alt={product.product_name_ar}

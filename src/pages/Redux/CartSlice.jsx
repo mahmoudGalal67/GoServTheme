@@ -20,7 +20,11 @@ const cartSlice = createSlice({
         existingItem.quantity += 1;
       } else {
         state.items.push({
-          ...action.payload,
+          product_id: action.payload.product_id,
+          price: action.payload.price,
+          photoes: action.payload.photoes,
+          product_name_ar: action.payload.product_name_ar,
+          product_name_en: action.payload.product_name_en,
           quantity: 1,
         });
       }
@@ -33,6 +37,7 @@ const cartSlice = createSlice({
       saveCartToLocalStorage(state.items);
     },
     updateItemQuantity: (state, action) => {
+      console.log(action.payload);
       const item = state.items.find(
         (item) => item.product_id === action.payload.product_id
       );
@@ -40,7 +45,14 @@ const cartSlice = createSlice({
         item.quantity = action.payload.quantity;
         item.price = action.payload.price;
       } else {
-        state.items.push({ ...action.payload });
+        state.items.push({
+          product_id: action.payload.product_id,
+          price: action.payload.price,
+          quantity: action.payload.quantity,
+          photoes: action.payload.photoes,
+          product_name_ar: action.payload.product_name_ar,
+          product_name_en: action.payload.product_name_en,
+        });
       }
       saveCartToLocalStorage(state.items);
     },

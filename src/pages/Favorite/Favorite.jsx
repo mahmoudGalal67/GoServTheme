@@ -33,7 +33,7 @@ function Favorite() {
                   >
                     <div className="py-3">
                       <img
-                        src={`http://salla1-001-site1.anytempurl.com/${product?.photoes[0]}`}
+                        src={`https://salla111-001-site1.ptempurl.com/${product?.photoes[0]}`}
                         height={100}
                         width={100}
                         alt={product.product_name_ar}

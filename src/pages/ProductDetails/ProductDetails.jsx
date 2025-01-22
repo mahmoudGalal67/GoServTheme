@@ -94,7 +94,6 @@ function ProductDetails() {
   const handleSizeChange = (e) => {
     setSizeId(Number(e.target.value));
   };
-  console.log(ProductDetails?.product_colors[ProductColorID]);
   useEffect(() => {
     const getProductDetails = async () => {
       try {
@@ -116,14 +115,6 @@ function ProductDetails() {
     }
     setrandint(randomIntFromInterval(100, 300));
   }, []);
-
-  const handleAddToCart = (product) => {
-    if (isProductInCart(product.product_id)) {
-      dispatch(removeItemFromCart(product));
-    } else {
-      dispatch(addItemToCart(product));
-    }
-  };
 
   const handleFavoriteClick = (product) => {
     if (isProductFavorite(product.product_id)) {
@@ -148,8 +139,7 @@ function ProductDetails() {
         quantity: count,
         price:
           ProductDetails.product_colors.length > 0
-            ? ProductDetails.product_colors[ProductColorID]
-                .product_color_sizes[0].price[SizeId]
+            ? ProductDetails.product_colors[ProductColorID].size_price[SizeId]
             : ProductDetails.price,
       })
     );
@@ -220,9 +210,10 @@ function ProductDetails() {
                           ProductColorID
                         ].photoes.map((img, i) => (
                           <ModalImage
-                            small={`http://salla1-001-site1.anytempurl.com/${img}`}
-                            large={`http://salla1-001-site1.anytempurl.com/${img}`}
+                            small={`https://salla111-001-site1.ptempurl.com/${img}`}
+                            large={`https://salla111-001-site1.ptempurl.com/${img}`}
                             alt={i}
+                            key={i}
                           />
                         ))}
                     </div>
@@ -300,11 +291,13 @@ function ProductDetails() {
                 className="w-75 p-2 bg-light rounded-2 border-1 border-black-50 text-black-50"
               >
                 {ProductDetails.product_colors &&
-                  ProductDetails.product_colors[
-                    ProductColorID
-                  ].product_color_sizes[0].size.map((size, i) => (
-                    <option value={i}>{size}</option>
-                  ))}
+                  ProductDetails.product_colors[ProductColorID].size.map(
+                    (size, i) => (
+                      <option key={i} value={i}>
+                        {size}
+                      </option>
+                    )
+                  )}
               </select>
               <div className="fs-6 fw-bold">اختر المقاس</div>
             </div>
@@ -314,8 +307,9 @@ function ProductDetails() {
           <div className="count">
             <div className="price">
               {ProductDetails.product_colors.length > 0
-                ? ProductDetails.product_colors[ProductColorID]
-                    .product_color_sizes[0].price[SizeId]
+                ? ProductDetails.product_colors[ProductColorID].size_price[
+                    SizeId
+                  ]
                 : ProductDetails.price}
             </div>
             <div className="counter">
@@ -368,7 +362,7 @@ function ProductDetails() {
                 ref={sourceRef}
                 style={{ width: "100%" }}
                 src={
-                  `http://salla1-001-site1.anytempurl.com/${
+                  `https://salla111-001-site1.ptempurl.com/${
                     ProductDetails.firstPhoto != undefined
                       ? ProductDetails?.firstPhoto
                       : ProductDetails?.photoes[0]
@@ -386,7 +380,7 @@ function ProductDetails() {
                   position: "absolute",
                 }}
                 src={
-                  `http://salla1-001-site1.anytempurl.com/${
+                  `https://salla111-001-site1.ptempurl.com/${
                     ProductDetails.firstPhoto != undefined
                       ? ProductDetails?.firstPhoto
                       : ProductDetails?.photoes[0]
@@ -428,7 +422,7 @@ function ProductDetails() {
                         onClick={() => setFirstPhoto(i)}
                       >
                         <img
-                          src={`http://salla1-001-site1.anytempurl.com/${img}`}
+                          src={`https://salla111-001-site1.ptempurl.com/${img}`}
                           alt=""
                         />
                       </div>

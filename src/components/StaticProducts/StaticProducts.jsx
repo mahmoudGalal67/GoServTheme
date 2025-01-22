@@ -60,8 +60,8 @@ function StaticProducts({ searchInput }) {
         const { data } = await request({
           url: `/api/Product_details/Getall?userid=${searchParams.get("id")}`,
         });
-        // setStaticProducts(data.slice(0, 8));
-        setStaticProducts(products.slice(0, 8));
+        setStaticProducts(data.slice(0, 8));
+        // setStaticProducts(products.slice(0, 8));
       } catch (error) {
         console.error("Error fetching data:", error);
       }

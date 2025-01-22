@@ -34,14 +34,12 @@ function ProductReviews() {
     try {
       setloading(true);
       const { data } = await request({
-        url: "api/website/product-review/create",
+        url: `api/Clients/addrat?uid=${user.userId}&pid=${id}`,
         method: "post",
         withCredentials: true,
         data: {
-          user_id: user.id,
-          product_id: Number(id),
-          rating: reviewsNumber,
-          comment,
+          rating_number: reviewsNumber,
+          rating_comment: comment,
         },
         headers: { Authorization: `Bearer ${cookies?.user}` },
       });
@@ -50,23 +48,25 @@ function ProductReviews() {
       setproductReview((prev) => [data.data, ...prev]);
       setloading(false);
     } catch (err) {
+      setloading(false);
       console.log(err);
+      toast.error(err);
     }
   };
 
-  useEffect(() => {
-    const getproductReview = async () => {
-      try {
-        const { data } = await request({
-          url: `/api/website/product-review/product/${id}`,
-        });
-        setproductReview(data.data);
-      } catch (error) {
-        setErr(error.response?.data?.message);
-      }
-    };
-    getproductReview();
-  }, [id]);
+  // useEffect(() => {
+  //   const getproductReview = async () => {
+  //     try {
+  //       const { data } = await request({
+  //         url: `/api/website/product-review/product/${id}`,
+  //       });
+  //       setproductReview(data.data);
+  //     } catch (error) {
+  //       setErr(error.response?.data?.message);
+  //     }
+  //   };
+  //   getproductReview();
+  // }, [id]);
 
   return (
     <section>

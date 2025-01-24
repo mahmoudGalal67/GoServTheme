@@ -93,7 +93,7 @@ function Cart() {
       // Calculate amount_cents and prepare payload
       const payload = {
         amount_cents: Number(totalAmount * 100), // Convert totalAmount to cents
-        phone_number: `+${user.mobile}`, // Ensure phone number includes the country code
+        phone_number: `+201026682015`, // Ensure phone number includes the country code
         redirection_url: "https://sallaplus.com", // Redirection URL
         payment_methods: 4915674,
         is_live: false,
@@ -110,16 +110,16 @@ function Cart() {
         },
       });
       // Make API request
-      // await request({
-      //   url: `/api/Clients/add_orders?totamount=${totalAmount * 100}&orderid=${
-      //     data.id
-      //   }`,
-      //   method: "POST",
-      //   data: orders,
-      //   headers: {
-      //     Authorization: `Bearer  ${cookies.usertoken}`,
-      //   },
-      // });
+      await request({
+        url: `/api/Clients/add_orders?totamount=${totalAmount * 100}&orderid=${
+          data.id
+        }`,
+        method: "POST",
+        data: orders,
+        headers: {
+          Authorization: `Bearer  ${cookies.usertoken}`,
+        },
+      });
       setLoading(false);
       window.location.href = data.shorten_url;
       // Handle success

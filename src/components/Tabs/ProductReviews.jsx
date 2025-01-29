@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import client from "../../images/user.svg";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 const reviews = [1, 2, 3, 4, 5];
 
-function ProductReviews() {
+function ProductReviews({ ProductDetails }) {
   const [cookies, setCookie] = useCookies(["user"]);
   const { user } = useContext(AuthContext);
 
@@ -21,7 +21,7 @@ function ProductReviews() {
   const [reviewsNumber, setReviewsNumber] = useState(1);
   const [comment, setComment] = useState("");
 
-  const [productReview, setproductReview] = useState([]);
+  const [productReview, setproductReview] = useState(ProductDetails.ratingDto);
 
   const { id } = useParams();
 
@@ -53,20 +53,6 @@ function ProductReviews() {
       toast.error(err);
     }
   };
-
-  // useEffect(() => {
-  //   const getproductReview = async () => {
-  //     try {
-  //       const { data } = await request({
-  //         url: `/api/website/product-review/product/${id}`,
-  //       });
-  //       setproductReview(data.data);
-  //     } catch (error) {
-  //       setErr(error.response?.data?.message);
-  //     }
-  //   };
-  //   getproductReview();
-  // }, [id]);
 
   return (
     <section>
@@ -131,24 +117,24 @@ function ProductReviews() {
           </div>
 
           {productReview.map((review) => (
-            <>
+            <Fragment key={review.rating_id}>
               <div>
                 <div className="d-flex justify-content-between">
                   <div className="mt-4 mx-2">
                     <img
                       src={review.img || client}
-                      className="rounded rounded-circle"
+                      className="rounded rounded-circle p-1"
                       width={50}
                       height={50}
                       alt=""
                     />
                     <div className="user-info  mt-0">
-                      <p> {review.user} </p>
+                      <p> {review.usersDto[0].name} </p>
                       <p style={{ color: "#FFC62A" }}>
-                        {new Array(review.rating).fill(0).map((rete) => (
+                        {new Array(review.rating_number).fill(0).map((rete) => (
                           <FaStar style={{ marginInline: "2px" }} />
                         ))}
-                        {new Array(5 - Number(review.rating))
+                        {new Array(5 - Number(review.rating_number))
                           .fill(0)
                           .map((rete) => (
                             <FaRegStar
@@ -159,18 +145,21 @@ function ProductReviews() {
                     </div>
                   </div>
                   <div className="date mt-4 fw-medium">
-                    <p> 10 / 13 / 2020 </p>
+                    <p> {ProductDetails.created_at || "fssd"} </p>
                   </div>
                 </div>
 
-                <p className="mx-5 fw-medium" style={{ color: "#49505C" }}>
-                  {review.comment}
+                <p
+                  className="mx-5 fw-medium"
+                  style={{ color: "#49505C", margin: "15px" }}
+                >
+                  {review.rating_comment}
                 </p>
               </div>
               {/* user1 */}
 
               <hr />
-            </>
+            </Fragment>
           ))}
 
           <button className="btn-more btn btn-lg btn-outline-success mt-4">

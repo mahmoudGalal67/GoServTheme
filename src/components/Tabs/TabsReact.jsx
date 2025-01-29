@@ -23,7 +23,7 @@ function TabsReact({ ProductDetails }) {
         </Tab>
 
         <Tab eventKey="contact" title="تقييمات المنتج">
-          <ProductReviews />
+          <ProductReviews ProductDetails={ProductDetails} />
         </Tab>
       </Tabs>
     </>

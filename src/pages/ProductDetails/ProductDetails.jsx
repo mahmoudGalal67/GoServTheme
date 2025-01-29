@@ -137,10 +137,9 @@ function ProductDetails() {
       updateItemQuantity({
         ...ProductDetails,
         quantity: count,
-        price:
-          ProductDetails.product_colors.length > 0
-            ? ProductDetails.product_colors[ProductColorID].size_price[SizeId]
-            : ProductDetails.price,
+        price: ProductDetails.product_colors[0].color_name
+          ? ProductDetails.product_colors[ProductColorID].size_price[SizeId]
+          : ProductDetails.price,
       })
     );
   };
@@ -283,7 +282,7 @@ function ProductDetails() {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          {ProductDetails.product_colors.length > 0 &&
+          {ProductDetails.product_colors[0].color_name &&
           ProductDetails.product_colors ? (
             <div className="choose-size flex w-100 justify-content-between gap-3 p-4">
               <select

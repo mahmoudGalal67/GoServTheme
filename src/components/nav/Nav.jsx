@@ -11,7 +11,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import { useCookies } from "react-cookie";
 import { Search } from "./Search";
@@ -24,6 +24,7 @@ function NavBar({ design, handleSearch }) {
 
   const products = useSelector((state) => state.cart.items);
 
+  let [searchParams, setSearchParams] = useSearchParams();
   const logoOut = () => {
     removeCookie("user", { path: "/" });
     dispatch({ type: "logout" });
@@ -82,7 +83,7 @@ function NavBar({ design, handleSearch }) {
             <img src="/search.svg" alt="" />
           </div>
           <div className="item flex">
-            <Link to="/">
+            <Link to={`/?id=${searchParams.get("id")}`}>
               <img className="logo" src="/logo.png" alt="" />
             </Link>
           </div>

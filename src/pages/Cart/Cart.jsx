@@ -1,6 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateItemQuantity, removeItemFromCart } from "../Redux/CartSlice";
+import {
+  updateItemQuantity,
+  removeItemFromCart,
+  fetchCartItemms,
+} from "../Redux/CartSlice";
 import { FiMinus } from "react-icons/fi";
 import { IoAdd } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
@@ -8,7 +12,7 @@ import NavBar from "../../components/nav/Nav";
 import Info from "../../components/Info/Info";
 import Footer from "../../components/Footer/Footer";
 import { AuthContext } from "../../components/context/Auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Cart.css";
@@ -17,6 +21,8 @@ import { request } from "../../components/utils/Request";
 import { useState } from "react";
 
 function Cart() {
+  let [searchParams, setSearchParams] = useSearchParams();
+
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,12 +30,47 @@ function Cart() {
 
   const [loading, setLoading] = useState(false);
 
-  const orders = products.map((product) => ({
-    product_id: product.product_id,
-    product_name: product.product_name_ar,
-    price: Number(product.price),
-    quantity: product.quantity,
-  }));
+  useEffect(() => {
+    try {
+      setLoading(true);
+      const getCartItems = async () => {
+        const { data } = await request({
+          url: `/api/Clients/getorder_admin?admin_id=${searchParams.get("id")}`,
+          headers: {
+            Authorization: `Bearer  ${cookies.usertoken}`,
+          },
+        });
+        const cartProducts = await Promise.all(
+          data[0].shopping_carddto.map(async (cart) => {
+            const { data: productDetails } = await request({
+              url: `api/Product_details/Getbyid?id=${cart.product_id}`,
+            });
+            return {
+              product_id: productDetails[0].product_id,
+              price: productDetails[0].price,
+              photoes: productDetails[0].photoes,
+              product_name_ar: productDetails[0].product_name_ar,
+              product_name_en: productDetails[0].product_name_en,
+              quantity: cart.quantity,
+            };
+          })
+        );
+        dispatch(fetchCartItemms([...cartProducts]));
+        console.log(data);
+      };
+      getCartItems();
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }, []);
+  // const orders = products.map((product) => ({
+  //   product_id: product.product_id,
+  //   product_name: product.product_name_ar,
+  //   price: Number(product.price),
+  //   quantity: product.quantity,
+  // }));
 
   // Genereates a number between 0 to 1;
   Math.random();
@@ -112,21 +153,21 @@ function Cart() {
         },
       });
       // Make API request
-      await request({
-        url: `/api/Clients/add_orders?totamount=${totalAmount * 100}&orderid=${
-          data.id
-        }&uid=${user.userId}`,
-        method: "POST",
-        data: orders,
-        headers: {
-          Authorization: `Bearer  ${cookies.usertoken}`,
-        },
-      });
+      // await request({
+      //   url: `/api/Clients/add_orders?totamount=${totalAmount * 100}&orderid=${
+      //     data.id
+      //   }&uid=${user.userId}`,
+      //   method: "POST",
+      //   data: orders,
+      //   headers: {
+      //     Authorization: `Bearer  ${cookies.usertoken}`,
+      //   },
+      // });
       setLoading(false);
-      window.location.href = data.shorten_url;
+      // window.location.href = data.shorten_url;
+      window.open(data.shorten_url, "_blank");
       // Handle success
       toast.success("Your order has been sent successfully");
-      console.log("Payment link data:", data);
 
       // Optionally redirect or handle further actions here
     } catch (error) {

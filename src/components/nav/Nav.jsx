@@ -45,7 +45,7 @@ function NavBar({ design, handleSearch }) {
             </Link>
           </div>
           <div className="item flex">
-            <Link className="flex" to="/cart">
+            <Link className="flex" to={`/cart?id=${searchParams.get("id")}`}>
               <span>
                 سلة
                 <br /> المشتريات

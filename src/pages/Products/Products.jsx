@@ -340,7 +340,9 @@ function Products() {
                                 {" "}
                                 <div className="title">{brand.brand_name}</div>
                                 <Link
-                                  to={`/productDetails/${product.product_id}`}
+                                  to={`/productDetails/${searchParams.get(
+                                    "id"
+                                  )}/${product.product_id}`}
                                 >
                                   <p className="desc">
                                     {truncateTitle(product.product_name_ar, 2)}

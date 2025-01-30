@@ -4,7 +4,7 @@ import TabsReact from "../../components/Tabs/TabsReact";
 import DynamicPrducts from "../../components/DynamicProducts/DynamicProducts";
 import Footer from "../../components/Footer/Footer";
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { request } from "../../components/utils/Request";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,10 +24,16 @@ import { addFavorite, removeFavorite } from "../../pages/Redux/FavoriteSlice";
 import Accordion from "react-bootstrap/Accordion";
 
 import "./ProductDetails.css";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { AuthContext } from "../../components/context/Auth";
+import { useCookies } from "react-cookie";
 
 function ProductDetails() {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const { user } = useContext(AuthContext);
+  const [cookies, setCookie] = useCookies(["user"]);
+
   // ZoomingEffect
   const sourceRef = useRef(null);
   const targetRef = useRef(null);
@@ -81,7 +87,6 @@ function ProductDetails() {
 
   const cartItems = useSelector((state) => state.cart.items);
   const favoriteItems = useSelector((state) => state.favorites.items);
-
   const { id } = useParams();
 
   const setFirstPhoto = (i) => {
@@ -124,6 +129,8 @@ function ProductDetails() {
     }
   };
 
+  console.log(cartItems);
+
   const isProductInCart = (product) => {
     return cartItems.some((item) => item.product_id === product.product_id);
   };
@@ -132,16 +139,41 @@ function ProductDetails() {
     return favoriteItems.some((item) => item.product_id === productId);
   };
 
-  const handleUpdateQuantity = (ProductDetails) => {
-    dispatch(
-      updateItemQuantity({
-        ...ProductDetails,
-        quantity: count,
-        price: ProductDetails.product_colors[0].color_name
-          ? ProductDetails.product_colors[ProductColorID].size_price[SizeId]
-          : ProductDetails.price,
-      })
-    );
+  // const handleUpdateQuantity = (ProductDetails) => {
+  //   dispatch(
+  //     updateItemQuantity({
+  //       ...ProductDetails,
+  //       quantity: count,
+  //       price: ProductDetails.product_colors[0].color_name
+  //         ? ProductDetails.product_colors[ProductColorID].size_price[SizeId]
+  //         : ProductDetails.price,
+  //     })
+  //   );
+  // };
+
+  const handleAddToCart = async (product) => {
+    try {
+      const { data } = await request({
+        url: `/api/Clients/add_orders?uid=${
+          user.userId
+        }&admin_id=${searchParams.get("id")}`,
+        method: "POST",
+        data: {
+          product_id: product.product_id,
+          product_name: product.product_name_ar,
+          price:
+            product.product_colors?.size_price?.length > 0
+              ? product.product_colors.size_price[SizeId]
+              : product.price,
+          admin_id: searchParams.get("id"),
+          quantity: count,
+        },
+        headers: { Authorization: `Bearer ${cookies?.usertoken}` },
+      });
+      dispatch(addItemToCart({ ...product, ...data[0] }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (err) {
@@ -305,10 +337,8 @@ function ProductDetails() {
           )}
           <div className="count">
             <div className="price">
-              {ProductDetails.product_colors.length > 0
-                ? ProductDetails.product_colors[ProductColorID].size_price[
-                    SizeId
-                  ]
+              {ProductDetails.product_colors?.size_price?.length > 0
+                ? ProductDetails.product_colors.size_price[SizeId]
                 : ProductDetails.price}
             </div>
             <div className="counter">
@@ -325,7 +355,7 @@ function ProductDetails() {
           <div className="links flex">
             <button
               className="custom-link-ouline"
-              onClick={() => handleUpdateQuantity(ProductDetails)}
+              onClick={() => handleAddToCart(ProductDetails)}
             >
               <img src="/cartcolored.svg" alt="" />
               {isProductInCart(ProductDetails)

@@ -30,27 +30,24 @@ function Product({ product, brand, category }) {
   };
 
   const handleAddToCart = async (product) => {
-    if (isProductInCart(product.product_id)) {
-      dispatch(removeItemFromCart({ id: product.product_id }));
-    } else {
-      dispatch(addItemToCart(product));
-      try {
-        const { data } = await request({
-          url: `/api/Clients/add_orders?uid=${
-            user.userId
-          }&admin_id=${searchParams.get("id")}`,
-          method: "POST",
-          data: {
-            product_id: product.product_id,
-            product_name: product.product_name_ar,
-            price: product.price,
-            admin_id: searchParams.get("id"),
-          },
-          headers: { Authorization: `Bearer ${cookies?.usertoken}` },
-        });
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      const { data } = await request({
+        url: `/api/Clients/add_orders?uid=${
+          user.userId
+        }&admin_id=${searchParams.get("id")}`,
+        method: "POST",
+        data: {
+          product_id: product.product_id,
+          product_name: product.product_name_ar,
+          price: product.price,
+          admin_id: searchParams.get("id"),
+          quantity: 1,
+        },
+        headers: { Authorization: `Bearer ${cookies?.usertoken}` },
+      });
+      dispatch(addItemToCart({ ...product, ...data[0] }));
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -90,7 +87,11 @@ function Product({ product, brand, category }) {
         }}
       />
       <div className="title">{brand.brand_name}</div>
-      <Link to={`/productDetails/${product.product_id}`}>
+      <Link
+        to={`/productDetails/${product.product_id}?id=${searchParams.get(
+          "id"
+        )}`}
+      >
         <p className="desc">{truncateTitle(product.product_name_ar, 2)}</p>
       </Link>
       <p className="info">{category.category_name_ar}</p>

@@ -27,6 +27,7 @@ function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.items);
+  console.log(products);
 
   const [loading, setLoading] = useState(false);
 
@@ -49,6 +50,7 @@ function Cart() {
               product_id: productDetails[0].product_id,
               price: productDetails[0].price,
               photoes: productDetails[0].photoes,
+              shopping_cart_id: cart.shopping_cart_id,
               product_name_ar: productDetails[0].product_name_ar,
               product_name_en: productDetails[0].product_name_en,
               quantity: cart.quantity,
@@ -100,6 +102,27 @@ function Cart() {
         quantity: product.quantity + 1,
       })
     );
+    const handleIncreaseQuantity = async (id) => {
+      const product = products.find((product) => product.product_id === id);
+      try {
+        const { data } = await request({
+          url: `/api/Clients/add_orders?uid=${
+            user.userId
+          }&admin_id=${searchParams.get("id")}`,
+          method: "POST",
+          data: {
+            product_id: product.product_id,
+            product_name: product.product_name_ar,
+            price: product.price,
+            admin_id: searchParams.get("id"),
+            quantity: product.quantity + 1,
+          },
+          headers: { Authorization: `Bearer ${cookies?.usertoken}` },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
   };
 
   const handleDecreaseQuantity = (id) => {
@@ -112,8 +135,19 @@ function Cart() {
     );
   };
 
-  const handleRemove = (id) => {
-    dispatch(removeItemFromCart({ id }));
+  const handleRemove = async (productID, cartID) => {
+    try {
+      dispatch(removeItemFromCart({ id: productID }));
+      await request({
+        url: `/api/Clients/deleteshop?id=${cartID}&uid=${user.userId}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer  ${cookies.usertoken}`,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
     console.log(id);
   };
 
@@ -281,7 +315,12 @@ function Cart() {
                       <MdCancel
                         className="fs-3"
                         style={{ marginRight: "8px", cursor: "pointer" }}
-                        onClick={() => handleRemove(product.product_id)}
+                        onClick={() =>
+                          handleRemove(
+                            product.product_id,
+                            product.shopping_cart_id
+                          )
+                        }
                       />
                     </div>
                   </div>

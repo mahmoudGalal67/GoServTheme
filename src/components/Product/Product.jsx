@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import FavButton from "../FavButton/FavButton";
 import CartButton from "../CartButton/CartButton";
 
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../pages/Redux/CartSlice";
 import { addFavorite, removeFavorite } from "../../pages/Redux/FavoriteSlice";
@@ -10,8 +9,9 @@ import { Link, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import { request } from "../utils/Request";
 import { useCookies } from "react-cookie";
+import { toast } from "react-toastify";
 
-function Product({ product, brand, category }) {
+function Product({ product, brand, category, layout }) {
   let [searchParams, setSearchParams] = useSearchParams();
 
   const { user } = useContext(AuthContext);
@@ -30,6 +30,10 @@ function Product({ product, brand, category }) {
   };
 
   const handleAddToCart = async (product) => {
+    if (!user) {
+      toast.info("you have to login firist");
+      return;
+    }
     try {
       const { data } = await request({
         url: `/api/Clients/add_orders?uid=${
@@ -70,11 +74,12 @@ function Product({ product, brand, category }) {
   return (
     <div
       key={product.product_id}
-      className="product"
+      className={layout === "column" ? "product column" : "product"}
       style={{
         width: "200px",
         height: "550px",
         padding: "12px",
+        justifyContent: layout ? "space-around" : "",
       }}
     >
       <img
@@ -99,7 +104,7 @@ function Product({ product, brand, category }) {
         <div className="old">{product.price * 1.4} ر.س</div>
         <div className="new">{product.price} رس</div>
       </div>
-      <div className="links-container">
+      <div className="links-container d-flex justify-content-around w-100">
         <div
           onClick={(e) => {
             e.preventDefault();

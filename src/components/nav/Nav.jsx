@@ -37,7 +37,10 @@ function NavBar({ design, handleSearch }) {
       <Navbar expand={false}>
         <div className="wrapper">
           <div className="item flex">
-            <Link className="flex" to="/Favorite">
+            <Link
+              className="flex"
+              to={`/Favorite?id=${searchParams.get("id")}`}
+            >
               <span>المفضلة</span>
               <div className="img-wrapper flex">
                 <FaHeartCircleBolt style={{ width: "20px", height: "20px" }} />
@@ -59,21 +62,30 @@ function NavBar({ design, handleSearch }) {
           <div className="item flex ">
             {!user ? (
               <>
-                <span>
-                  مرحبا بك <br /> تسجيل دخول
-                </span>
                 <div
-                  className="img-wrapper flex"
                   onClick={() => setModalShow(true)}
+                  style={{ cursor: "pointer" }}
+                  className="flex"
                 >
-                  <img src="/user.svg" alt="" />
+                  <span>
+                    مرحبا بك <br /> تسجيل دخول
+                  </span>
+                  <div className="img-wrapper ">
+                    <img src="/user.svg" alt="" />
+                  </div>
                 </div>
               </>
             ) : (
               <>
-                <span>تسجيل خروج</span>
-                <div className="img-wrapper flex" onClick={logoOut}>
-                  <img src="/user.svg" alt="" />
+                <div
+                  className=" flex"
+                  onClick={logoOut}
+                  style={{ cursor: "pointer" }}
+                >
+                  <span>تسجيل خروج</span>
+                  <div className="img-wrapper ">
+                    <img src="/user.svg" alt="" />
+                  </div>
                 </div>
               </>
             )}

@@ -129,8 +129,6 @@ function ProductDetails() {
     }
   };
 
-  console.log(cartItems);
-
   const isProductInCart = (product) => {
     return cartItems.some((item) => item.product_id === product.product_id);
   };

@@ -6,7 +6,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Form from "react-bootstrap/Form";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
 
 import { addItemToCart, removeItemFromCart } from "../../pages/Redux/CartSlice";
@@ -22,6 +22,8 @@ import { request } from "../../components/utils/Request";
 import { useDispatch, useSelector } from "react-redux";
 
 import { products } from "../../components/StaticProducts/dummyProducts";
+import { useCookies } from "react-cookie";
+import { AuthContext } from "../../components/context/Auth";
 
 const colors = [
   { hex_code: "gray", name: "white" },
@@ -33,6 +35,10 @@ const colors = [
 
 function Products() {
   let [searchParams, setSearchParams] = useSearchParams();
+
+  const { user } = useContext(AuthContext);
+  const [cookies, setCookie] = useCookies(["user"]);
+
   const [Products, setProducts] = useState([]);
   const [categories, setcategories] = useState([]);
   const [brands, setbrands] = useState([]);
@@ -68,11 +74,29 @@ function Products() {
   const cartItems = useSelector((state) => state.cart.items);
   const favoriteItems = useSelector((state) => state.favorites.items);
 
-  const handleAddToCart = (product) => {
-    if (isProductInCart(product.product_id)) {
-      dispatch(removeItemFromCart({ id: product.product_id }));
-    } else {
-      dispatch(addItemToCart(product));
+  const handleAddToCart = async (product) => {
+    if (!user) {
+      toast.info("you have to login firist");
+      return;
+    }
+    try {
+      const { data } = await request({
+        url: `/api/Clients/add_orders?uid=${
+          user.userId
+        }&admin_id=${searchParams.get("id")}`,
+        method: "POST",
+        data: {
+          product_id: product.product_id,
+          product_name: product.product_name_ar,
+          price: product.price,
+          admin_id: searchParams.get("id"),
+          quantity: 1,
+        },
+        headers: { Authorization: `Bearer ${cookies?.usertoken}` },
+      });
+      dispatch(addItemToCart({ ...product, ...data[0] }));
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -328,7 +352,7 @@ function Products() {
                               }
                             >
                               <img
-                                src={`http://salla1-001-site1.anytempurl.com/${product.photoes[0]}`}
+                                src={`https://salla111-001-site1.ptempurl.com/${product.photoes[0]}`}
                                 alt=""
                                 style={{
                                   width: "280px",

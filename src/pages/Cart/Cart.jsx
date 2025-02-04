@@ -24,29 +24,32 @@ function Cart() {
   let [searchParams, setSearchParams] = useSearchParams();
 
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.items);
-  console.log(products);
 
   const [loading, setLoading] = useState(false);
+
+  const [cartId, setcartId] = useState(null);
 
   useEffect(() => {
     try {
       setLoading(true);
       const getCartItems = async () => {
         const { data } = await request({
-          url: `/api/Clients/getorder_admin?admin_id=${searchParams.get("id")}`,
+          url: `/api/Clients/getorder_client?userid=${user.userId}`,
           headers: {
             Authorization: `Bearer  ${cookies.usertoken}`,
           },
         });
+        const userCart = data.find((item) => item.status == "بانتظار المراجعه");
+        setcartId(userCart.order_id);
         const cartProducts = await Promise.all(
-          data[0].shopping_carddto.map(async (cart) => {
+          userCart.shopping_carddto.map(async (cart) => {
             const { data: productDetails } = await request({
               url: `api/Product_details/Getbyid?id=${cart.product_id}`,
             });
             return {
+              order_id: data[0].order_id,
               product_id: productDetails[0].product_id,
               price: productDetails[0].price,
               photoes: productDetails[0].photoes,
@@ -58,7 +61,6 @@ function Cart() {
           })
         );
         dispatch(fetchCartItemms([...cartProducts]));
-        console.log(data);
       };
       getCartItems();
       setLoading(false);
@@ -94,7 +96,15 @@ function Cart() {
     )
     .join(", ");
 
-  const handleIncreaseQuantity = (id) => {
+  // const handleIncreaseQuantity = (id) => {
+  //   const product = products.find((product) => product.product_id === id);
+  //   dispatch(
+  //     updateItemQuantity({
+  //       ...product,
+  //       quantity: product.quantity + 1,
+  //     })
+  //   )}
+  const handleIncreaseQuantity = async (id) => {
     const product = products.find((product) => product.product_id === id);
     dispatch(
       updateItemQuantity({
@@ -102,37 +112,45 @@ function Cart() {
         quantity: product.quantity + 1,
       })
     );
-    const handleIncreaseQuantity = async (id) => {
-      const product = products.find((product) => product.product_id === id);
-      try {
-        const { data } = await request({
-          url: `/api/Clients/add_orders?uid=${
-            user.userId
-          }&admin_id=${searchParams.get("id")}`,
-          method: "POST",
-          data: {
-            product_id: product.product_id,
-            product_name: product.product_name_ar,
-            price: product.price,
-            admin_id: searchParams.get("id"),
-            quantity: product.quantity + 1,
-          },
-          headers: { Authorization: `Bearer ${cookies?.usertoken}` },
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    try {
+      const { data } = await request({
+        url: `/api/Clients/add_orders?uid=${
+          user.userId
+        }&admin_id=${searchParams.get("id")}`,
+        method: "POST",
+        data: {
+          product_id: product.product_id,
+          product_name: product.product_name_ar,
+          price: product.price,
+          admin_id: searchParams.get("id"),
+          quantity: product.quantity + 1,
+        },
+        headers: { Authorization: `Bearer ${cookies?.usertoken}` },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleDecreaseQuantity = (id) => {
+  const handleDecreaseQuantity = async (id, cartID) => {
     const product = products.find((product) => product.product_id === id);
     dispatch(
       updateItemQuantity({
         ...product,
-        quantity: product.quantity > 1 ? product.quantity - 1 : 1,
+        quantity: product.quantity > 0 ? product.quantity - 1 : 0,
       })
     );
+    try {
+      await request({
+        url: `/api/Clients/deleteshop?id=${cartID}&uid=${user.userId}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer  ${cookies.usertoken}`,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleRemove = async (productID, cartID) => {
@@ -148,7 +166,6 @@ function Cart() {
     } catch (err) {
       console.log(err);
     }
-    console.log(id);
   };
 
   const handlePayment = async () => {
@@ -187,16 +204,13 @@ function Cart() {
         },
       });
       // Make API request
-      // await request({
-      //   url: `/api/Clients/add_orders?totamount=${totalAmount * 100}&orderid=${
-      //     data.id
-      //   }&uid=${user.userId}`,
-      //   method: "POST",
-      //   data: orders,
-      //   headers: {
-      //     Authorization: `Bearer  ${cookies.usertoken}`,
-      //   },
-      // });
+      await request({
+        url: `/api/Clients/updatepaymentstatus?id=${cartId}&status=قيد التنفيذ&pay_id=${data.order}`,
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer  ${cookies.usertoken}`,
+        },
+      });
       setLoading(false);
       // window.location.href = data.shorten_url;
       window.open(data.shorten_url, "_blank");
@@ -307,7 +321,10 @@ function Cart() {
                         className="btn-click"
                         style={{ color: "black" }}
                         onClick={() =>
-                          handleDecreaseQuantity(product.product_id)
+                          handleDecreaseQuantity(
+                            product.product_id,
+                            product.shopping_cart_id
+                          )
                         }
                       >
                         <FiMinus />

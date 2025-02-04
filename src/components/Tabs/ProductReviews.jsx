@@ -22,7 +22,7 @@ function ProductReviews({ ProductDetails }) {
   const [comment, setComment] = useState("");
 
   const [productReview, setproductReview] = useState(ProductDetails.ratingDto);
-
+  console.log(productReview);
   const { id } = useParams();
 
   const addReview = async (e) => {
@@ -45,7 +45,7 @@ function ProductReviews({ ProductDetails }) {
       });
       setComment("");
       setReviewsNumber(1);
-      setproductReview((prev) => [data.data, ...prev]);
+      setproductReview((prev) => [data[0], ...prev]);
       setloading(false);
     } catch (err) {
       setloading(false);
@@ -129,7 +129,7 @@ function ProductReviews({ ProductDetails }) {
                       alt=""
                     />
                     <div className="user-info  mt-0">
-                      <p> {review.usersDto[0].name} </p>
+                      <p> {review?.usersDto[0]?.name} </p>
                       <p style={{ color: "#FFC62A" }}>
                         {new Array(review.rating_number).fill(0).map((rete) => (
                           <FaStar style={{ marginInline: "2px" }} />
@@ -145,7 +145,7 @@ function ProductReviews({ ProductDetails }) {
                     </div>
                   </div>
                   <div className="date mt-4 fw-medium">
-                    <p> {ProductDetails.created_at || "fssd"} </p>
+                    <p> {review.created_at} </p>
                   </div>
                 </div>
 

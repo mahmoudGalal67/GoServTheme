@@ -55,7 +55,7 @@ function MyVerticallyCenteredModal(props) {
     try {
       setLoading(true);
       const { data } = await request({
-        url: "/api/UsersController/register",
+        url: "/api/UsersController/register_for_client",
         method: "post",
         data: {
           name,
@@ -115,7 +115,7 @@ function MyVerticallyCenteredModal(props) {
                 <input
                   required
                   name="pass"
-                  type="number"
+                  type="password"
                   placeholder="**********"
                 />
               </>

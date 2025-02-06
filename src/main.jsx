@@ -21,32 +21,35 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import Favorite from "./pages/Favorite/Favorite.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/products",
-    element: <Products />,
-  },
-  {
-    path: "/productDetails/:id",
-    element: <ProductDetails />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
-  },
-  {
-    path: "/Favorite",
-    element: <Favorite />,
-  },
-  {
-    path: "/design",
-    element: <HomeDesign />,
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/products",
+      element: <Products />,
+    },
+    {
+      path: "/productDetails/:id",
+      element: <ProductDetails />,
+    },
+    {
+      path: "/cart",
+      element: <Cart />,
+    },
+    {
+      path: "/Favorite",
+      element: <Favorite />,
+    },
+    {
+      path: "/design",
+      element: <HomeDesign />,
+    },
+  ],
+  { basename: "/" }
+);
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
